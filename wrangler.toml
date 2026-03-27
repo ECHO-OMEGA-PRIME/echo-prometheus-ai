@@ -1,10 +1,11 @@
 name = "echo-prometheus-ai"
 main = "src/index.ts"
 compatibility_date = "2024-12-01"
+usage_model = "unbound"
 
 [vars]
 ENVIRONMENT = "production"
-VERSION = "1.0.0"
+VERSION = "2.0.0"
 PROMETHEUS_URL = "http://192.168.1.202:8370"
 CHARLIE_NODE = "192.168.1.202"
 
@@ -39,3 +40,14 @@ service = "echo-chat"
 [[services]]
 binding = "KNOWLEDGE"
 service = "echo-knowledge-forge"
+
+[[services]]
+binding = "CLOUD"
+service = "echo-prometheus-cloud"
+
+[triggers]
+crons = [
+  "*/5 * * * *",
+  "0 * * * *",
+  "0 0 * * *"
+]
