@@ -281,6 +281,8 @@ app.use('*', cors());
 // PUBLIC ENDPOINTS (no auth)
 // ───────────────────────────────────────────────────────────────
 
+app.get("/", (c) => c.json({ service: 'echo-prometheus-ai', status: 'operational' }));
+
 app.get('/health', async (c) => {
   const env = c.env;
   let dbStats = { conversations: 0, tool_executions: 0, findings: 0, patrol_events: 0 };
