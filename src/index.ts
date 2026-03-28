@@ -1351,6 +1351,19 @@ async function runPatrol(env: Bindings, cronType: string) {
 // EXPORT — fetch + scheduled
 // ═══════════════════════════════════════════════════════════════
 
+
+app.onError((err, c) => {
+  if (err.message?.includes('JSON')) {
+    return c.json({ error: 'Invalid JSON body' }, 400);
+  }
+  console.error(`[echo-prometheus-ai] ${err.message}`);
+  return c.json({ error: 'Internal server error' }, 500);
+});
+
+app.notFound((c) => {
+  return c.json({ error: 'Not found' }, 404);
+});
+
 export default {
   fetch: app.fetch,
 
